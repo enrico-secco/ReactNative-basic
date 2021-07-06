@@ -1,0 +1,62 @@
+import React, {Component} from 'react';
+import { View, Text, StyleSheet, TextInput} from 'react-native'; //componentes
+
+class App extends Component{ 
+
+  constructor(props){
+    super(props);
+    this.state = {
+      nome: ""
+    }
+
+    this.pegaNome = this.pegaNome.bind(this);
+  }
+
+  pegaNome(texto){ //onChange manda um txt, então pega parâmetro
+
+    if(texto.length > 0){
+    this.setState({ nome:'Bem vindo ' + texto})
+  }else{
+    this.setState({ nome: ''})  // se digita e apaga continuava o bem vindo
+  }
+}
+  
+  render(){ 
+    return(
+      <View style={styles.container}>
+     
+     <TextInput
+      style = {styles.input}
+      placeholder = "Digite seu nome"
+      
+      onChangeText={this.pegaNome} //chamada toda vez que digita algo nela.
+     />
+
+     <Text style = {styles.texto}>
+        {this.state.nome}
+     </Text>
+      </View>
+
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1
+  },
+  input:{
+    height:45,
+    borderWidth: 1,
+    borderColor: '#222',
+    margin:40,
+    fontSize:20, //aumenta texto dentro
+    padding:10 //espaçamento do texto e da parte da caixa.
+  },
+  texto:{
+    textAlign: 'center',
+    fontSize: 25
+  }
+})
+
+export default App;

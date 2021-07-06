@@ -1,0 +1,154 @@
+import React, {Component} from 'react';
+import { View, Text, StyleSheet, 
+  Animated} from 'react-native'; //componentes
+
+// Animated.View -> fala que a view é animada
+// larguraAnimada: new Animated.Value(150) -> fala que a state é animada e passa ela como width pra saber que é animada
+//
+//
+//
+
+class App extends Component{ 
+
+  constructor(props){
+    super(props);
+    this.state = {
+      
+      larguraAnimada: new Animated.Value(150), //diz que é uma state animada
+      alturaAnimada: new Animated.Value(50),
+
+      OpacidadeAnimada: new Animated.Value(0)
+    };
+
+   /* // SEQUENCIA
+    Animated.sequence([
+
+      Animated.timing(
+        this.state.OpacidadeAnimada,
+        {
+          toValue: 1,
+          duration: 2000
+        },
+      ),
+
+      Animated.timing(
+        this.state.larguraAnimada,
+        {
+          toValue: 300,
+          duration: 2000
+        },
+      ),
+
+      Animated.timing(
+        this.state.alturaAnimada,
+        {
+          toValue: 200,
+          duration: 2000
+        }
+      ),
+
+      
+      )
+    ]).start();
+    */
+    
+
+    /*Paralelo
+    Animated.parallel([
+
+      Animated.timing(
+        this.state.larguraAnimada,
+        {
+          toValue: 300,
+          duration: 2000
+        },
+      ),
+
+      Animated.timing(
+        this.state.alturaAnimada,
+        {
+          toValue: 200,
+          duration: 2000
+        }
+      )
+    ]).start();
+    */
+    
+    
+    
+   Animated.sequence([
+
+    Animated.timing(
+      this.state.OpacidadeAnimada,
+      {
+        toValue: 1,
+        duration: 2000
+      },
+    ),
+
+
+    Animated.parallel([
+
+      Animated.timing(
+        this.state.larguraAnimada,
+        {
+          toValue: 300,
+          duration: 2000
+        }
+      ),
+
+      Animated.timing(
+        this.state.alturaAnimada,
+        {
+          toValue: 150,
+          duration: 2000
+        }
+      )
+    ]),
+
+    Animated.timing(
+      this.state.OpacidadeAnimada,
+      {
+        toValue:0,
+        duration:2000
+      }
+    )
+    
+
+  ]).start();
+    
+  }
+
+
+  render(){ 
+
+
+    return(
+      <View style={styles.container}>
+
+        <Animated.View style={{width: this.state.larguraAnimada, //passa através de uma state que é animada 
+          height: this.state.alturaAnimada,
+          opacity: this.state.OpacidadeAnimada ,
+          backgroundColor:"#4169e1", justifyContent: "center", alignItems:"center" }}>
+          <Text> Carregando...</Text>
+        </Animated.View>
+
+      </View>
+
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    marginTop: 10,
+    justifyContent: "center", 
+    alignItems:"center",
+
+    backgroundColor: "#DDD",
+  },
+  
+})
+
+export default App;

@@ -1,0 +1,37 @@
+import React, {Component} from 'react';
+import { View, Text, Button } from 'react-native'; //componentes
+
+class App extends Component{ //app é um component
+  
+  constructor(props){ //construtor recebe todas as propriedades
+    super(props);//deixa utilizar e acessar tudo
+    this.state ={ //cria a state
+      nome: ""
+    };
+
+    this.entrar = this.entrar.bind(this); //bind pra ela acessar todas as propriedades
+  }
+
+  entrar(nome){
+      this.setState({
+        nome: nome 
+      })
+  }
+  
+  render(){ 
+    return(
+      <View style={{marginTop: 20}}>
+                                            //this.entrar() -> pra referenciar que é um metodo dessa classe referenciado a essa classe.
+      <Button title="Entrar" onPress={() => this.entrar("Enrico")}/> 
+                                        // função anônima pq se não carrega a função na hora de renderizar e entra em loop infinito(app mostra erro)
+        <Text style={{fontSize: 23, color: 'blue', textAlign: 'center'}}>
+          {this.state.nome}
+          </Text>
+
+      </View>
+    );
+  }
+}
+
+
+export default App;

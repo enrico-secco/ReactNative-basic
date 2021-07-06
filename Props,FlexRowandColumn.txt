@@ -1,0 +1,65 @@
+Toda função ou classe tem que ter return e export no final
+-> Em Classe extends Component
+render(){ -> vai renderizar tudo
+    return()
+}
+
+
+## EX CRIAR PROPS ##
+<Jobs largura={100}  altura={200}  fulano="STECE JOBS"/> 
+      </View>
+    );
+  }
+}
+
+class Jobs extends Component{
+  render(){
+
+    let img = 'https://sujeitoprogramador.com/steve.png';
+
+    return(
+      <View>
+      <Image 
+      source = {{uri: img}}
+      style= {{width: this.props.largura, height: this.props.altura}}   />
+
+    <Text>{this.props.fulano}</Text>
+      </View>
+
+
+props -> estático ( não muda de valor )
+estados -> mutáveis
+
+## GRUPOS DE ESTILO ##
+   <Text style={[styles.textoPrincipal, styles.alinhaTexto]}>Eu sou texto 1</Text> 
+      <Text style={styles.alinhaTexto}>Eu sou texto 2</Text>
+      <Text>Eu sou texto 3</Text>
+      <Text style= {styles.textoPrincipal}>Eu sou texto 4</Text>
+
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  area:{
+    marginTop: 40
+  },
+  textoPrincipal:{
+    fontSize:25,
+    color: '#ff0000'
+  },
+
+  alinhaTexto:{
+    textAlign:'center'
+  }
+
+
+#'#ffff00'# JUSTIFY CONTENT E ALIGN ITEMS 
+em ROW
+ justify content -> horizontal (coluna)
+ align intens -> vertical (linha)
+
+ em COLUMN
+  justify content -> vertical (linha)
+ align intens -> horizontal (coluna)

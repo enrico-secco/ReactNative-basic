@@ -1,0 +1,94 @@
+SÓ RENDERIZA E ALOCA AQUELES ELEMENTOS QUE ESTÃO SENDO MOSTRADOS. -> util listas grandes
+
+import React, {Component} from 'react';
+import { View, Text, StyleSheet, FlatList} from 'react-native'; //componentes
+
+import Pessoa from './src/Pessoas/Pessoa'
+
+class App extends Component{ 
+
+  constructor(props){
+    super(props);
+    this.state = {
+      feed: [
+        {id: '1',nome: "Enrico", idade: 20, email:"enrico@gmail.com"},
+        {id: '2',nome: "joao", idade: 22, email:"joao@gmail.com"},
+        {id: '3',nome: "pedro", idade: 90, email:"pedro@gmail.com"},
+        {id: '4',nome: "Jose", idade: 30, email:"jose@gmail.com"},
+      ]
+    }
+  }
+  
+  render(){ 
+    return(
+      <View style = {styles.container}>
+          
+          <FlatList
+          data={this.state.feed}
+          keyExtractor = {(item) => item.id}
+          renderItem={ ({item}) =>  <Pessoa data ={item}/>}
+          />
+
+      </View>
+
+    );
+    }
+}
+
+//data -> lista que vai receber
+// renderItem -> responsavel por renderizar a lista
+
+// renderItem={ ({item}) =>  <Pessoa data ={item}/>}  data (criou esse nome) vai receber todos os itens da lista.
+//               -> var item - desconstruir e receber o item da lista
+// ITEM TEM ACESSO A TODO O DATA QUE PASSOU, A TODO STATE FEED
+// Pessoa -> criou componente que renderiza essa lista
+
+//keyExtractor -> id
+
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1
+  }
+ 
+})
+//areaPessoa -> uma área pra cada Pessoa
+
+
+export default App;
+
+######
+import React, {Component} from 'react';
+import{Text, View, StyleSheet} from 'react-native';
+
+class Pessoa extends Component{
+  render(){
+    return(
+      <View style={styles.areaPessoa}>
+        <Text style = {styles.textoPessoa}>Nome: {this.props.data.nome} </Text>
+        <Text style = {styles.textoPessoa}>Idade: {this.props.data.idade}</Text>
+        <Text style = {styles.textoPessoa}>Email: {this.props.data.email}</Text>
+      </View>
+    )
+  }
+}
+
+
+  const styles = StyleSheet.create({
+    areaPessoa:{
+      backgroundColor: '#222',
+      height: 200,
+      marginBottom: 15,
+      marginTop: 20
+    },
+    textoPessoa:{
+      color:'#fff',
+      fontSize: 34
+    }
+   
+})
+
+export default Pessoa;
+
+//Imprime tudo do Enrico, depois imprime do joao ...
+//areaPessoa -> uma área pra cada Pessoa

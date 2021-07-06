@@ -1,0 +1,51 @@
+import React, {Component} from 'react';
+import { View, Text, StyleSheet, Slider} from 'react-native'; //componentes
+
+
+
+class App extends Component{ 
+
+  constructor(props){
+    super(props);
+    this.state = {
+      valor: 50 //setado como 50, pra começar na metade
+    }
+  }
+
+  
+  render(){ 
+    return(
+      <View style={styles.container}>
+
+      <Slider
+      minimumValue={0}
+      maximumValue={100}
+      onValueChange={ (valorSelecionado) => this.setState({valor: valorSelecionado})  }
+      value={this.state.valor} // valor 
+      minimumTrackTintColor='#f45' //anterior da bolinha
+      maximumTrackTintColor='#00ff'//depois da bolinha
+      />
+  
+
+        <Text style= {styles.valor}>
+          {this.state.valor.toFixed(0)}
+        </Text>
+      </View>
+
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    marginTop: 50
+  },
+  valor:{
+    fontSize: 24,
+    textAlign:"center"
+  }
+  
+})
+
+export default App;

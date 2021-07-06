@@ -1,0 +1,125 @@
+import React, {Component} from 'react';
+import { View, Text, StyleSheet, TextInput, Picker, Slider, Button, Switch} from 'react-native'; //componentes
+
+
+
+class App extends Component{ 
+
+  constructor(props){
+    super(props);
+    this.state = {
+      name:"",
+      student: false,
+      limit: 10,
+      age: 0,
+
+      sexoEscolhido: 0,
+      sexo: [
+        {key:1, escolha: "F"},
+        {key:2, escolha:"M"}
+      ]
+    }
+    this.validar = this.validar.bind(this)
+  }
+
+
+ validar(){
+    if(this.state.name == "" || this.state.age == 0  ){
+      alert("Nome ou Idade não pode ser vazio!")
+    } 
+     else{
+      alert("Dados enviados, Nome: " + this.state.name + "\n" + 
+      "Idade: " + this.state.age)
+      
+    }
+  }
+  
+  render(){ 
+
+    let genderItem = this.state.sexo.map( (v,k) => {
+      return <Picker.Item key={k} value={k} label={v.escolha} />
+    })
+
+    return(
+      <View style={styles.container}>
+
+      <Text style={styles.title}> Bem vindo ao Banco </Text>   
+
+
+      <TextInput style={styles.input}  
+      placeholder = "Digite seu nome"
+      onChangeText = { (nome) => { this.setState({ name: nome})}}></TextInput>
+
+
+      <TextInput style={styles.input}  
+      placeholder = "Digite sua idade"
+      onChangeText = { (idade) => { this.setState({ age: idade})}}></TextInput>
+
+
+      <Picker style={styles.gender}
+       selectedValue={this.state.sexoEscolhido}
+       onValueChange={ (itemValue, itemIndex) => (this.setState({sexoEscolhido: itemIndex}))}
+      > 
+        {genderItem}
+      </Picker>
+
+
+      <Slider style={styles.limit}
+      value={this.state.limit}
+      onValueChange={(value) => (this.setState({limit: value}))}
+      minimumValue={10}
+      maximumValue={100}></Slider>
+      <Text>Limite escolhido : {this.state.limit.toFixed(0)}</Text>
+
+
+      <Text> Estudante: {(this.state.student) ? "Sim" : "Não"}</Text>
+      <Switch style={styles.student} 
+      value={this.state.student}
+      onValueChange={ (estudante) => (this.setState({student: estudante}))}
+      ></Switch>
+      
+
+      <Button title= "Enviar dados"
+      style={styles.button}
+      onPress ={this.validar}/>
+
+      </View>
+
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    marginTop: 80,
+    alignItems: "center",
+    backgroundColor: "#fffaaa"
+  },
+  title:{
+    fontSize: 24,
+    fontWeight: "bold"
+  },
+  input:{
+    marginTop: 50,
+    fontSize: 15
+  },
+  gender:{
+    marginTop: 40
+  },
+  limit:{
+    marginTop: 40
+  },
+  student:{
+    
+    marginBottom: 40
+  },
+  button:{
+    marginTop: 40,
+    borderRadius: 80,
+    
+  }
+
+})
+
+export default App;

@@ -1,0 +1,71 @@
+import React, {Component} from 'react';
+import { View, Text, StyleSheet, 
+  Animated,
+  TouchableOpacity} from 'react-native'; //componentes
+
+  //Interpolações
+
+class App extends Component{ 
+
+  constructor(props){
+    super(props);
+    this.state = {
+      
+       larguraAnimada: new Animated.Value(0),
+
+    };
+    
+    Animated.timing(
+      this.state.larguraAnimada,
+      {
+        toValue: 100,
+        duration: 3000
+      }
+    ).start();
+
+  }
+
+
+
+  render(){ 
+
+    let porcentagemAnimate = this.state.larguraAnimada.interpolate({
+      inputRange:[0, 100], // transforma de 0 (state), até 100 (timing toValue)
+      outputRange:['0%', '50%']//para de 0%, até 50% (50 % de 100 do toValue)
+      //outputRange:['0%', '100%'] // para de 0% até 100% (tela toda)
+      // outputRange:['50%', '100%'] //de metade da tela pro fim
+    })
+
+    return(
+      <View style={styles.container}>
+
+
+       <Animated.View style={{backgroundColor: "#4987",
+        width: porcentagemAnimate,
+        height: 25}}>
+
+          
+
+       </Animated.View>
+
+       
+      </View>
+
+
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    marginTop: 27,
+    justifyContent: "center", 
+    
+
+    backgroundColor: "#DDD",
+  },
+  
+})
+
+export default App;

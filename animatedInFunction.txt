@@ -1,0 +1,97 @@
+import React, {Component} from 'react';
+import { View, Text, StyleSheet, 
+  Animated,
+  TouchableOpacity} from 'react-native'; //componentes
+
+// Animated.View -> fala que a view é animada
+// larguraAnimada: new Animated.Value(150) -> fala que a state é animada e passa ela como width pra saber que é animada
+//
+// #Fazer animação -> em Função
+//
+
+class App extends Component{ 
+
+  constructor(props){
+    super(props);
+    this.state = {
+      
+      larguraAnimada: new Animated.Value(150), //diz que é uma state animada
+      alturaAnimada: new Animated.Value(35),
+      OpAnimada: new Animated.Value(0)
+    };
+    
+    this.carregarGrafico = this.carregarGrafico.bind(this)
+  }
+
+  carregarGrafico(){
+
+    Animated.sequence([
+
+      Animated.timing(
+        this.state.OpAnimada,
+        {
+          toValue: 1,
+          duration: 400
+        }
+
+      ),
+
+      Animated.timing(
+        this.state.alturaAnimada,
+        {
+          toValue: 300,
+          duration: 1000
+        }
+      )
+    ]).start();
+
+  }
+
+
+  render(){ 
+
+
+    return(
+      <View style={{flex: 1}}>
+
+
+        <View style={{height: 120, alignItems:"center", justifyContent: "center", flexDirection:"row", backgroundColor:"#ddd"}}>
+
+            <TouchableOpacity onPress={this.carregarGrafico}>
+              <Text style={{fontSize: 25}}> Gerar Gráfico </Text>
+            </TouchableOpacity>
+        </View>
+
+
+        <View style={{flex: 1 /* Ocupar tela toda, se não o gráfico surgiria de cima */
+          , justifyContent:"flex-end", alignItems:"center"}}>
+
+          <Animated.View style={{width: this.state.larguraAnimada, height: this.state.alturaAnimada, opacity: this.state.OpAnimada , //passa através de uma state que é animada 
+            backgroundColor:"#4169e1", justifyContent: "center", alignItems:"center" }}>
+            <Text> R$ 150</Text>
+          </Animated.View>
+
+        </View>
+
+      </View>
+
+
+
+        
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    marginTop: 0,
+    justifyContent: "center", 
+    alignItems:"center",
+
+    backgroundColor: "#DDD",
+  },
+  
+})
+
+export default App;
